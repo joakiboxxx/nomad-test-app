@@ -27,7 +27,6 @@ func isbackendok() bool {
 		if err == nil && string(data) == "ok" {
 			return true
 		}
-		return false
 	}
 	return false
 }
