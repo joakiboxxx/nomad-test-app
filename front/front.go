@@ -32,6 +32,7 @@ func main() {
 }
 
 func getbackendservers() (s servers, err error) {
+	// This is not exactly nice, but it gets the job done. Consul is contacted on the Nomad node's IP address which is exposed to Docker by Nomad
 	r, err := http.Get(fmt.Sprintf("http://%s:8500/v1/catalog/service/backend", os.Getenv("NOMAD_IP_frontend")))
 	if err != nil {
 		return
