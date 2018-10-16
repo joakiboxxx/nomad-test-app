@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 )
@@ -12,5 +11,9 @@ func main() {
 		fmt.Fprint(w, "ok")
 	})
 
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("NOMAD_PORT_backend")), nil))
+	err := http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("NOMAD_PORT_backend")), nil)
+	if err != nil {
+		fmt.Printf("%+v\n", err)
+		os.Exit(22)
+	}
 }
