@@ -32,7 +32,7 @@ func main() {
 }
 
 func getbackendservers() (s servers, err error) {
-	r, err := http.Get("http://consul.sre-testing.com:8500/v1/catalog/service/backend")
+	r, err := http.Get("http://consul.service.consul:8500/v1/catalog/service/backend")
 	if err != nil {
 		return
 	}
