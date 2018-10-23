@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 )
@@ -14,20 +15,21 @@ type servers []struct {
 }
 
 func main() {
+	var logger = log.New(os.Stdout, "", log.Ldate|log.Ldate|log.Lmicroseconds|log.Lshortfile)
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		ok, err := isbackendok()
 		if err != nil {
-			fmt.Printf("%+v\n", err)
-			os.Exit(11)
+			logger.Fatalf("%+v\n", err)
 		}
 
+		logger.Printf("%+v\n", r)
 		fmt.Fprintf(w, "Backend is reachable, %d servers replying.\n", ok)
 	})
 
 	err := http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("NOMAD_PORT_frontend")), nil)
 	if err != nil {
-		fmt.Printf("%+v\n", err)
-		os.Exit(22)
+		logger.Fatalf("%+v\n", err)
 	}
 }
 
