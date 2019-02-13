@@ -1,4 +1,4 @@
-job "test-service" {
+job "joakibo_service" {
   datacenters = ["dc1"]
   type = "service"
 
@@ -18,8 +18,8 @@ job "test-service" {
     healthy_deadline = "5m"
   }
 
-  group "backend-group" {
-    count = 3
+  group "backend_group" {
+    count = 6
 
     restart {
       attempts = 2
@@ -32,11 +32,14 @@ job "test-service" {
       size = 300
     }
 
-    task "backend-task" {
+    task "backend_task" {
       driver = "docker"
 
       config {
-        image = "joakiboxxx/nomad-test-app-backend:v20"
+        image = "644898301346.dkr.ecr.eu-west-1.amazonaws.com/joakibo_backend:latest"
+        port_map {
+          backend = "8080"
+        }
       }
 
       resources {
@@ -62,7 +65,7 @@ job "test-service" {
     }
   }
 
-  group "frontend-group" {
+  group "frontend_group" {
     count = 1
 
     restart {
@@ -76,11 +79,14 @@ job "test-service" {
       size = 300
     }
 
-    task "frontend-task" {
+    task "frontend_task" {
       driver = "docker"
 
       config {
-        image = "joakiboxxx/nomad-test-app-frontend:v23"
+        image = "644898301346.dkr.ecr.eu-west-1.amazonaws.com/joakibo_frontend:latest"
+        port_map {
+          frontend = "80"
+        }
       }
 
       resources {

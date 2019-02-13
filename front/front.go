@@ -27,7 +27,7 @@ func main() {
 		fmt.Fprintf(w, "Backend is reachable, %d servers replying.\n", ok)
 	})
 
-	err := http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("NOMAD_PORT_frontend")), nil)
+	err := http.ListenAndServe(fmt.Sprintf(":%s", "80"), nil)
 	if err != nil {
 		logger.Fatalf("%+v\n", err)
 	}

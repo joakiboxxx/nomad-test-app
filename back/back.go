@@ -11,7 +11,7 @@ func main() {
 		fmt.Fprint(w, "ok")
 	})
 
-	err := http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("NOMAD_PORT_backend")), nil)
+	err := http.ListenAndServe(fmt.Sprintf(":%s", "8080"), nil)
 	if err != nil {
 		fmt.Printf("%+v\n", err)
 		os.Exit(22)
